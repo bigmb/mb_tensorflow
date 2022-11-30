@@ -1,5 +1,6 @@
 from ...params.params_all import ModelParams
 
+__all__ = ['NFlowParams','RealNvpParams']
 
 class RealNvpParams(ModelParams):
     """
@@ -22,7 +23,7 @@ class RealNvpParams(ModelParams):
         self.fraction_masked = fraction_masked    
 
 
-class NFParams(ModelParams):
+class NFlowParams(ModelParams):
     """
     Parameters for defining and creating a normalizing flow model.
 
