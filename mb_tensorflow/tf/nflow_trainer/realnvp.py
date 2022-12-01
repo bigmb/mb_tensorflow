@@ -1,11 +1,16 @@
 from mb_utils.src.logging import Logger
-from trainer import RealNvpParams,NFlowParams
+from .trainer_class import NFlowParams
+import numpy as np
+import typing as tp
+import tensorflow_probability as tfp
 
-def create_nflow_bijector(
+__all__ = ['create_realnvp_bijector']
+
+def create_realnvp_bijector(
     a_means: np.ndarray,
     a_stds: tp.Optional[np.ndarray] = None,
-    params: NFlowModelParams = NFlowModelParams(),
-    name: str = "nflow_bijector",
+    params: NFlowParams = NFlowParams(),
+    name: str = "realnvp_bijector",
     logger=None,
 ):
     """Creates an NFlow bijector.
@@ -30,20 +35,27 @@ def create_nflow_bijector(
         an NFlow bijector
     """
 
-    from mt import tfp
-
-    if params.arch != "realnvp":
+    if logger:
+        logger.info("Creating NFlow bijector")
+    if params.arch != "RealNvp":
         raise NotImplementedError(
             "Unknown how to implement an NFlow with arch '{}'.".format(params.arch)
         )
+    if logger:
+        logger.info("Creating RealNvp bijector")
 
     realnvp_params = params.realnvp_params
+    if logger:
+        logger.info("RealNvp parameters: {}".format(realnvp_params))
 
     if not isinstance(realnvp_params.n_layers, int) or realnvp_params.n_layers < 0:
         raise ValueError(
             "Expected a positive integer for parameter 'realnvp_params.n_layers'. "
             "Got: {}.".format(realnvp_params.n_layers)
         )
+    
+    if logger:
+        logger.info("Creating RealNvp bijector")
     bijectors = []
     for i in range(realnvp_params.n_layers):
         if i % 2 == 0:
@@ -53,10 +65,19 @@ def create_nflow_bijector(
         bijector = tfp.bijectors.RealNVP(
             fraction_masked=fraction_masked,
             shift_and_log_scale_fn=tfp.bijectors.real_nvp_default_template(
-                hidden_layers=realnvp_params.ln_hiddenDims,
-                shift_only=True,
+                hidden_layers=realnvp_params.n_hidden_layers,
+                shift_only=realnvp_params.shift_only,
             ),
             name="realnvp",
         )
 
         bijectors.append(bijector)
+
+    if a_stds is not None:
+        bijectors.append(tfp.bijectors.Scale(a_stds))
+    bijectors.append(tfp.bijectors.Shift(a_means))
+
+    if logger:
+        logger.info('RealNvp bijectors: {}'.format(bijectors))
+
+    return tfp.bijectors.Chain(bijectors, name=name)

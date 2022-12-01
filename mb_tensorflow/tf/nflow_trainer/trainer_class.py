@@ -14,7 +14,7 @@ class RealNvpParams(ModelParams):
     gen : int
         model generation/family number, starting from 1
     """
-    yaml_tag = "!RealNvpParams"
+    yaml_tag = "!RealNvp_Params"
 
     def __init__(self, layers : int =4 ,hidden : int = 256, fraction_masked : float = 0.5, gen: int = 1):
         super().__init__(gen=gen)
@@ -39,7 +39,7 @@ class NFlowParams(ModelParams):
         model generation/family number, starting from 1
     """
     
-    yaml_tag = "!Tf_Nflow
+    yaml_tag = "!Tf_Nflow"
 
     def __init__(self, arch: str = "RealNVP", arch_params: ArchParams = RealNvpParams(), input_dim: int = 128,gen: int = 1):
         super().__init__(gen=gen)
