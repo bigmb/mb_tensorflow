@@ -23,7 +23,7 @@ def create_maf_bijector(
     if logger:
         logger.info("Creating MAF bijector")
     
-    maf_params = params.maf_params
+    maf_params = params.MafParams
     if logger:
         logger.info("MAF parameters: {}".format(maf_params))
     

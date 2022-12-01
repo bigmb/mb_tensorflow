@@ -4,7 +4,7 @@ __all__ = ['NFlowParams','RealNvpParams']
 
 class RealNvpParams(ModelParams):
     """
-    Parameters for RealNVP models.
+    Parameters for RealNvp models.
     layers : int
         number of layers
     hidden : int
@@ -16,10 +16,10 @@ class RealNvpParams(ModelParams):
     """
     yaml_tag = "!RealNvp_Params"
 
-    def __init__(self, layers : int =4 ,hidden : int = 256, fraction_masked : float = 0.5, gen: int = 1):
+    def __init__(self, layers : int =4 ,hidden_layers : int = 256, fraction_masked : float = 0.5, gen: int = 1):
         super().__init__(gen=gen)
         self.layers = layers
-        self.hidden = hidden
+        self.hidden_layers = hidden_layers
         self.fraction_masked = fraction_masked    
 
 
@@ -41,7 +41,7 @@ class NFlowParams(ModelParams):
     
     yaml_tag = "!Tf_Nflow"
 
-    def __init__(self, arch: str = "RealNVP", arch_params: ArchParams = RealNvpParams(), input_dim: int = 128,gen: int = 1):
+    def __init__(self, arch: str = "RealNvp", arch_params: RealNvpParams = RealNvpParams(), input_dim: int = 128,gen: int = 1):
         super().__init__(gen=gen)
         self.arch = arch
         self.arch_params = arch_params

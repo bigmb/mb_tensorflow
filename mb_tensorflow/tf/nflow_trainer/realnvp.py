@@ -44,20 +44,20 @@ def create_realnvp_bijector(
     if logger:
         logger.info("Creating RealNvp bijector")
 
-    realnvp_params = params.realnvp_params
+    realnvp_params = params.RealNvpParams
     if logger:
         logger.info("RealNvp parameters: {}".format(realnvp_params))
 
-    if not isinstance(realnvp_params.n_layers, int) or realnvp_params.n_layers < 0:
+    if not isinstance(realnvp_params.layers, int) or realnvp_params.layers < 0:
         raise ValueError(
             "Expected a positive integer for parameter 'realnvp_params.n_layers'. "
-            "Got: {}.".format(realnvp_params.n_layers)
+            "Got: {}.".format(realnvp_params.layers)
         )
     
     if logger:
         logger.info("Creating RealNvp bijector")
     bijectors = []
-    for i in range(realnvp_params.n_layers):
+    for i in range(realnvp_params.layers):
         if i % 2 == 0:
             fraction_masked = realnvp_params.fraction_masked
         else:
@@ -65,7 +65,7 @@ def create_realnvp_bijector(
         bijector = tfp.bijectors.RealNVP(
             fraction_masked=fraction_masked,
             shift_and_log_scale_fn=tfp.bijectors.real_nvp_default_template(
-                hidden_layers=realnvp_params.n_hidden_layers,
+                hidden_layers=realnvp_params.hidden_layers,
                 shift_only=realnvp_params.shift_only,
             ),
             name="realnvp",
