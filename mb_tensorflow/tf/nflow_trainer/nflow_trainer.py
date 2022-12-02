@@ -2,8 +2,11 @@ import numpy as np
 import tensorflow_probability as tfp
 from .trainer_class import NFlowParams
 import typing as tp
-from realnvp import create_realnvp_bijector
-from maf import create_maf_bijector
+from .realnvp import create_realnvp_bijector
+from .maf import create_maf_bijector
+from mb_utils.src.logging import Logger
+
+__all__ = ['create_nflow_model']
 
 def create_nflow_model(
     a_means: np.ndarray,

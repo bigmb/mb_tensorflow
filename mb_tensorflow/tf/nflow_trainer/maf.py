@@ -2,6 +2,7 @@ import tensorflow_probability as tfp
 import numpy as np
 import typing as tp
 from .trainer_class import NFlowParams
+from mb_utils.src.logging import Logger
 
 __all__ = ['create_maf_bijector']
 
