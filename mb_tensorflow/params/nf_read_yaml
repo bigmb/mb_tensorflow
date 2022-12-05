@@ -1,0 +1,9 @@
+training_type: !Tf_Nflow
+  input_dim : 128
+  gen : 1
+  with_labels: True
+  augmentaion: False
+  early_stopping: True
+  RealNvp : !RealNvP_Params {layers: 4 , fraction_masked : 0.5 , hidden_layers : [256,256],shift_only : True}
+  Maf : !Maf_Params {layers: 4 , fraction_masked : 0.5 , n_hidden_layers : [256,256],shift_only : True}
+
