@@ -4,14 +4,14 @@ tf_data_params: !Tf_Data_Params
   data : /home/malav/um_dataset.csv ##can be image folder or csv
   training_data_loc : /home/malav/tf_trainings/
   folder_name : tf_train
-training_type: !Tf_Nflow
-  input_dim : 128
-  gen : 1
-  with_labels: True
-  augmentaion: False
-  early_stopping: True
-  RealNvp : !RealNvP_Params {layers: 4 , fraction_masked : 0.5 , hidden_layers : [256,256],shift_only : True}
-  Maf : !Maf_Params {layers: 4 , fraction_masked : 0.5 , n_hidden_layers : [256,256],shift_only : True}
+# training_type: !Tf_Nflow
+#   input_dim : 128
+#   gen : 1
+#   with_labels: True
+#   augmentaion: False
+#   early_stopping: True
+#   RealNvp : !RealNvP_Params {layers: 4 , fraction_masked : 0.5 , hidden_layers : [256,256],shift_only : True}
+#   Maf : !Maf_Params {layers: 4 , fraction_masked : 0.5 , n_hidden_layers : [256,256],shift_only : True}
 model_params: !Tf_Model_Params
   input_dim : 3
   depth: 3
