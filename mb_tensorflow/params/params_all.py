@@ -7,10 +7,10 @@ class ModelParams(yaml.YAMLObject):
     """Parameters for defining and creating a model.
     This is an abstract class. The user should subclass from this class to define their own class
     which represents the collection of parameters to create models of a given family.
-    Parameters
-    ----------
-    gen : int
-        model generation/family number, starting from 1
+    
+    Params:
+        gen : int
+            model generation/family number, starting from 1
     """
 
     yaml_tag = "!ModelParams"
@@ -20,22 +20,20 @@ class ModelParams(yaml.YAMLObject):
 
 
 class BaseParams(yaml.YAMLObject):
-    yaml_tag = "!BaseParams"
-
     """Basic parameters for wrangling the data for training models.
 
-    Parameters
-    ----------
-    data_localpath : path
-        path to the data folder
-    filename : str
-        file name of the final data to be trained. Default is 'event_munet_wrangled.pdh5'.
+    Params:
+        data_localpath : path
+            path to the data folder
+        filename : str
+            file name of the final data to be trained. Default is 'training_data.csv'.
     """
+    yaml_tag = "!BaseParams"
 
     def __init__(
         self,
         data_localpath: str = "./data",
-        filename: str = "event_wrangled.pdh5",
+        filename: str = "training_data.csv",
     ):
 
         self.data_localpath = data_localpath

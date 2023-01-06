@@ -13,7 +13,7 @@ class Tf_Data_Params(yaml.YAMLObject):
     yaml_tag = '!Tf_Data_Params'
 
     def __init__(self):
-        self.get_all_tf_data=yaml_tag.get_all_tf_data
+        self.get_all_tf_data=True
 
     @staticmethod
     def tf_version(logger=None):

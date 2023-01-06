@@ -1,0 +1,42 @@
+tf_data_params: !Tf_Data_Params
+  get_all_tf_data: True
+  data : /home/malav/um_dataset.csv ##can be image folder or csv
+  training_data_loc : /home/malav/tf_trainings/
+  folder_name : tf_train
+
+model_params: !Tf_Model_Params
+  input_dim : 3
+  depth: 3
+  output_dim : 10
+early_stopping: !Early_Stopping_Params
+  patience: 5
+optimizer_params: !Optimizer_Params
+  rmsprop: !RMSprop_Params {lr: 0.0001, momentum: 0.9, epsilon: 1.0e-7, rho: 0.9, centered: false}
+  adam: !Adam_Params {amsgrad: false, beta_1: 0.9, beta_2: 0.999, epsilon: 1.0e-07, lr: 0.001}
+  adamw: !AdamW_Params {amsgrad: false, beta_1: 0.9, beta_2: 0.999, epsilon: 1.0e-07, lr: 0.001, weight_decay: 0.0001}
+  lr_schedule: !LRSchedule_Params
+    cosine_decay: !CosineDecayLRS_Params {alpha: 0.1, base_lr: 0.001, decay_steps: 5000}
+    exponential_decay: !ExponentialDecayLRS_Params {base_lr: 0.002, decay_rate: 0.97, decay_steps: 10000, staircase: false}
+    piecewise_constant_decay: !PiecewiseConstantDecayLRS_Params
+      boundaries: [1000, 5000, 10000, 30000]
+      values: [0.0002, 0.00015, 0.00012, 0.00011, 0.0001]
+    variant: exponential_decay
+  sgd: !SGD_Params {lr: 0.01, momentum: 0.0, nesterov: false}
+  sgdw: !SGDW_Params {lr: 0.01, momentum: 0.0, nesterov: false, weight_decay: 1.0e-05}
+  use_schedule: false
+  
+training_params: !Training_Params
+  augmentaion: !Augmentation_Params
+    flip: []
+    rotate: []
+    shift: []
+    affine: []
+    zoom: []
+  epochs: 100
+validation_params: !Validation_Params
+  augmentaion: !Augmentation_Params
+    flip: []
+    rotate: []
+    shift: []
+    affine: []
+    zoom: []

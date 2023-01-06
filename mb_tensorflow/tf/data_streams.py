@@ -3,7 +3,7 @@
 import pandas as pd
 import os
 
-from .params import BaseAugmentorParams
+from ..params.params_all import BaseParams
 from .base import BaseBatchMaker
 
 
@@ -73,8 +73,8 @@ def load_trainval_streams(
     batch_maker_class,
     make_dataset_func,
     batch_size: int = 32,
-    training_generator_params: BaseAugmentorParams = BaseAugmentorParams(),
-    validation_generator_params: BaseAugmentorParams = BaseAugmentorParams(),
+    training_generator_params: BaseParams = BaseParams(),
+    validation_generator_params: BaseParams = BaseParams(),
     output_dirpath: str = None,
     batch_maker_init_args=(),
     batch_maker_init_kwargs={},
@@ -94,9 +94,9 @@ def load_trainval_streams(
         the generator params at the minimum
     batch_size : int
         number of items per batch
-    training_generator_params : BaseAugmentorParams
+    training_generator_params : BaseParams
         all the parameters for augmenting the training items
-    validation_generator_params : BaseAugmentorParams
+    validation_generator_params : BaseParams
         all the parameters for augmenting the validation items
     output_dirpath : str
         path for the output root folder
@@ -165,8 +165,8 @@ def load_trainval_streams(
 
     if debug_dirpath is not None:
         # image_pair not available in pdh5 yet
-    val_filepath = os.path.join(debug_dirpath, "val.csv.zip")
-    pd.dfsave(validation_batch_maker.df, val_filepath, index=False)
+        val_filepath = os.path.join(debug_dirpath, "val.csv.zip")
+        pd.dfsave(validation_batch_maker.df, val_filepath, index=False)
 
     return DataStreams(
         batch_size,
