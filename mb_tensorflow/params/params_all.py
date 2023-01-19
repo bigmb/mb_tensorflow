@@ -1,3 +1,5 @@
+### Base Params defined in tf_base_params.py
+## only use this file for refernece
 import yaml
 import os
 

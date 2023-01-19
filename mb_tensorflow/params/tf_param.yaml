@@ -27,16 +27,20 @@ optimizer_params: !Optimizer_Params
   
 training_params: !Training_Params
   augmentaion: !Augmentation_Params
-    flip: []
-    rotate: []
-    shift: []
-    affine: []
-    zoom: []
+    image_size: []
+    zoom_range: []
+    shear_range: []
+    rotate: [] 
+    random_fliplr: False
+    random_flipud: False
+    move_range: []
   epochs: 100
 validation_params: !Validation_Params
   augmentaion: !Augmentation_Params
-    flip: []
-    rotate: []
-    shift: []
-    affine: []
-    zoom: []
+    image_size: []
+    zoom_range: []
+    shear_range: []
+    rotate: [] 
+    random_fliplr: False
+    random_flipud: False
+    move_range: []
